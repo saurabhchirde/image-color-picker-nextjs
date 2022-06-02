@@ -15,6 +15,7 @@ import { BsShuffle } from "react-icons/bs";
 import { Palette } from "../components/Cards/Palette/Palette";
 import { Canvas } from "../components";
 import { getImageData } from "../Utils/getImage";
+import { saveAs } from "file-saver";
 
 const HomePage = () => {
   const [imageData, setImageData] = useState([]);
@@ -24,13 +25,14 @@ const HomePage = () => {
   const [flag, setFlag] = useState(false);
   const [showRandomImage, setShowRandomImage] = useState(false);
 
+  const colorArray = new Array(5);
+
   const imageApi = "https://api.unsplash.com/search/photos?query=";
   const completeImageAPI = `${imageApi}+landscape&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
 
   const imageUploadHandler = (newImage) => {
-    console.log(newImage);
     setImageData(newImage);
-
+    setImageUrl("");
     if (newImage.length > 0) {
       setFlag(true);
       setShowRandomImage(false);
@@ -44,15 +46,35 @@ const HomePage = () => {
     setImageData([]);
   };
 
+  const downloadHandler = () => {
+    if (flag) {
+      saveAs(imageData[imageData.length - 1].data_url, "palette.jpg");
+    } else {
+      saveAs(imageUrl, "palette.jpg");
+    }
+  };
+
+  const mouseMoveHandler = (e) => {
+    console.log(e);
+  };
+
   useEffect(() => {
     getImageData(completeImageAPI, setImageUrl);
   }, []);
 
   return (
-    <Container h="100vh" maxW="full" p={0}>
-      <Flex h="95vh" w="full" py={10} justifyContent="space-between">
+    <Container minH="100vh" maxW="full" p={0} paddingBottom="10">
+      <Flex
+        h="95vh"
+        w="full"
+        py={10}
+        alignItems="center"
+        justifyContent="center"
+        flexWrap="wrap"
+      >
         <VStack
-          w="container.lg"
+          w="container.sm"
+          minW="96"
           h="full"
           p={10}
           spacing={10}
@@ -87,7 +109,7 @@ const HomePage = () => {
             )}
           </ImageUploading>
         </VStack>
-        <Flex w="container.lg" justifyContent="center">
+        <Flex w="container.sm" justifyContent="center">
           <VStack
             h="full"
             display="flex"
@@ -95,30 +117,81 @@ const HomePage = () => {
             alignItems="center"
             justifyContent="center"
           >
-            <Box objectFit="contain" marginBottom={2} w="container">
+            <Box
+              objectFit="contain"
+              marginBottom={2}
+              w="container"
+              position="relative"
+            >
               <Canvas
+                colorArray={colorArray}
                 imageData={imageData}
                 imageUrl={imageUrl}
                 flag={flag}
                 showRandomImage={showRandomImage}
               />
+              {/* <Box position="absolute" w="full" h="full" top={0}>
+                <Box
+                  w={7}
+                  h={7}
+                  backgroundColor="yellow.500"
+                  borderRadius="full"
+                  border="2px solid white"
+                  draggable="true"
+                  onDrag={mouseMoveHandler}
+                />
+                <Box
+                  w={7}
+                  h={7}
+                  backgroundColor="yellow.500"
+                  borderRadius="full"
+                  border="2px solid white"
+                  draggable="true"
+                  // onDrag={mouseMoveHandler}
+                />
+                <Box
+                  w={7}
+                  h={7}
+                  backgroundColor="yellow.500"
+                  borderRadius="full"
+                  border="2px solid white"
+                  draggable="true"
+                  // onDrag={mouseMoveHandler}
+                />
+                <Box
+                  w={7}
+                  h={7}
+                  backgroundColor="yellow.500"
+                  borderRadius="full"
+                  border="2px solid white"
+                  draggable="true"
+                  // onDrag={mouseMoveHandler}
+                />
+                <Box
+                  w={7}
+                  h={7}
+                  backgroundColor="yellow.500"
+                  borderRadius="full"
+                  border="2px solid white"
+                  draggable="true"
+                  // onDrag={mouseMoveHandler}
+                />
+              </Box> */}
             </Box>
-            <Palette colorName="Color Name" colorHex="#123456" />
+            <Palette colorArray={colorArray} />
           </VStack>
-          <VStack
-            h="full"
+          <Flex
+            flexDirection="column"
             justifyContent="space-between"
-            paddingRight={5}
-            py={12}
-            px={5}
+            paddingLeft={5}
+            py={5}
           >
             <IconButton
               aria-label="Call Segun"
               color="blue.400"
               fontSize="3xl"
               bg="transparent"
-              py={8}
-              px={6}
+              p={6}
               borderRadius="full"
               icon={<BsShuffle />}
               onClick={randomImageHandler}
@@ -128,12 +201,12 @@ const HomePage = () => {
               color="blue.400"
               fontSize="3xl"
               bg="transparent"
-              px={6}
-              py={8}
+              p={6}
               borderRadius="full"
               icon={<FiDownload />}
+              onClick={downloadHandler}
             />
-          </VStack>
+          </Flex>
         </Flex>
       </Flex>
     </Container>

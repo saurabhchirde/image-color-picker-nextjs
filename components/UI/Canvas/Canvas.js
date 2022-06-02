@@ -1,12 +1,26 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { convertToHex } from "../../../Utils/convertToHex";
 
-export const Canvas = ({ imageData, imageUrl, flag, showRandomImage }) => {
+export const Canvas = ({
+  colorArray,
+  imageData,
+  imageUrl,
+  flag,
+  showRandomImage,
+}) => {
   const canvasRef = useRef(null);
+  const [color, setColor] = useState("");
 
   const mouseMoveHandler = (e) => {
     const context = e.target.getContext("2d");
-    const pixelData = context.getImageData(e.pageX - 0, e.pageY - 0, 1, 1).data;
+    const pixelData = context.getImageData(
+      0,
+      0,
+      canvasRef.current.width,
+      canvasRef.current.height
+    ).data;
+
+    console.log(pixelData);
 
     const hexCode =
       "#" +
@@ -14,20 +28,21 @@ export const Canvas = ({ imageData, imageUrl, flag, showRandomImage }) => {
       convertToHex(pixelData[1]) +
       convertToHex(pixelData[2]);
     console.log(hexCode);
+    setColor(hexCode);
   };
 
   const createCanvas = () => {
-    const imageObj = new Image();
+    const image = new Image();
     const context = canvasRef.current.getContext("2d");
-    imageObj.src = flag ? imageData[imageData.length - 1].data_url : imageUrl;
-    imageObj.crossOrigin = "Anonymous";
-    imageObj.onload = () =>
+    image.src = flag ? imageData[imageData.length - 1].data_url : imageUrl;
+    image.crossOrigin = "Anonymous";
+    image.onload = () =>
       context.drawImage(
-        imageObj,
+        image,
         80,
         0,
-        imageObj.width,
-        imageObj.height,
+        image.width,
+        image.height,
         0,
         0,
         550,
@@ -35,13 +50,21 @@ export const Canvas = ({ imageData, imageUrl, flag, showRandomImage }) => {
       );
   };
 
+  const takeColorHandler = () => {
+    if (colorArray.length < 4) {
+      colorArray.push({ colorHex: color });
+    }
+    // console.log(color);
+  };
+
   useEffect(() => {
     createCanvas();
-  }, [flag, showRandomImage]);
+  }, [flag, showRandomImage, imageUrl]);
 
   return (
     <canvas
-      onClick={mouseMoveHandler}
+      onClick={takeColorHandler}
+      onMouseMove={mouseMoveHandler}
       width="500px"
       height="600px"
       ref={canvasRef}
