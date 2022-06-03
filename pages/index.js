@@ -24,9 +24,13 @@ const HomePage = () => {
   );
   const [flag, setFlag] = useState(false);
   const [showRandomImage, setShowRandomImage] = useState(false);
-  const [color, setColor] = useState("");
-
-  const colorArray = new Array(5);
+  const [color, setColor] = useState({
+    palette1: "",
+    palette2: "",
+    palette3: "",
+    palette4: "",
+    palette5: "",
+  });
 
   const imageApi = "https://api.unsplash.com/search/photos?query=";
   const completeImageAPI = `${imageApi}+landscape&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
@@ -53,10 +57,6 @@ const HomePage = () => {
     } else {
       saveAs(imageUrl, "palette.jpg");
     }
-  };
-
-  const mouseMoveHandler = (e) => {
-    console.log(e);
   };
 
   useEffect(() => {
@@ -111,20 +111,16 @@ const HomePage = () => {
           </ImageUploading>
         </VStack>
         <Flex w="container.sm" justifyContent="center">
-          <VStack
-            h="full"
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            justifyContent="center"
-          >
+          <Flex flexDirection="column" gap={2}>
             <Box
-              objectFit="contain"
-              marginBottom={2}
-              w="container"
-              position="relative"
+              h="full"
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              justifyContent="center"
             >
               <Canvas
+                color={color}
                 setColor={setColor}
                 imageData={imageData}
                 imageUrl={imageUrl}
@@ -133,7 +129,7 @@ const HomePage = () => {
               />
             </Box>
             <Palette color={color} />
-          </VStack>
+          </Flex>
           <Flex
             flexDirection="column"
             justifyContent="space-between"
