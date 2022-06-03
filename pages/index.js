@@ -1,4 +1,5 @@
 import { Container, Flex, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 import { CanvasWithPalette, Header, UploadSection } from "../components";
 import { getImageData } from "../Utils/getImage";
@@ -63,7 +64,7 @@ const HomePage = () => {
 
   useEffect(() => {
     getImageData(completeImageAPI, setImageUrl);
-  }, []);
+  }, [completeImageAPI]);
 
   return (
     <>
@@ -96,7 +97,7 @@ const HomePage = () => {
         </Flex>
         <Text textAlign="center" marginBottom={5}>
           made with ❤️ by{" "}
-          <a href="https://twitter.com/SaurabhChirde">Saurabh Chirde</a>
+          <Link href="https://twitter.com/SaurabhChirde">Saurabh Chirde</Link>
         </Text>
       </Container>
     </>
