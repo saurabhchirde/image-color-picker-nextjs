@@ -5,3 +5,4 @@ export { DraggableItem } from "./CanvasWithPalette/Canvas/DraggableItems/Draggab
 export { CanvasWithPalette } from "./CanvasWithPalette/CanvasWithPalette";
 export { UploadSection } from "./UploadSection/UploadSection";
 export { DraggableContainer } from "./CanvasWithPalette/Canvas/DraggableContainer/DraggableContainer";
+export { PaletteBox } from "./CanvasWithPalette/Palette/PaletteBox/PaletteBox";

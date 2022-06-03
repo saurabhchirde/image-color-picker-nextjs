@@ -16,6 +16,7 @@ export const DraggableItem = ({ mouseMoveHandler, color, xPos, yPos, id }) => {
         backgroundColor={color}
         id={id}
         border="2px solid white"
+        cursor="pointer"
       />
     </Draggable>
   );
