@@ -1,42 +1,40 @@
 import { useRef, useEffect, useState } from "react";
-import { convertToHex } from "../../../Utils/convertToHex";
+import { convertToHex, rgbToHex } from "../../../Utils/convertToHex";
 
 export const Canvas = ({
-  colorArray,
+  setColor,
   imageData,
   imageUrl,
   flag,
   showRandomImage,
 }) => {
   const canvasRef = useRef(null);
-  const [color, setColor] = useState("");
 
   const mouseMoveHandler = (e) => {
-    const context = e.target.getContext("2d");
-    const pixelData = context.getImageData(
-      0,
-      0,
-      canvasRef.current.width,
-      canvasRef.current.height
-    ).data;
+    const cols = canvasRef.current.width;
+    const pixel = cols * e.pageX + e.pageY;
+    const arrayPos = pixel;
 
-    console.log(pixelData);
+    const colors = {
+      red: canvasRef.current.data[arrayPos],
+      green: canvasRef.current.data[arrayPos + 1],
+      blue: canvasRef.current.data[arrayPos + 2],
+    };
 
-    const hexCode =
-      "#" +
-      convertToHex(pixelData[0]) +
-      convertToHex(pixelData[1]) +
-      convertToHex(pixelData[2]);
+    const hexCode = rgbToHex(colors.red, colors.green, colors.blue);
     console.log(hexCode);
     setColor(hexCode);
   };
 
   const createCanvas = () => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
     const image = new Image();
-    const context = canvasRef.current.getContext("2d");
+
     image.src = flag ? imageData[imageData.length - 1].data_url : imageUrl;
+
     image.crossOrigin = "Anonymous";
-    image.onload = () =>
+    image.onload = () => {
       context.drawImage(
         image,
         80,
@@ -48,13 +46,16 @@ export const Canvas = ({
         550,
         600
       );
-  };
 
-  const takeColorHandler = () => {
-    if (colorArray.length < 4) {
-      colorArray.push({ colorHex: color });
-    }
-    // console.log(color);
+      const pixelData = context.getImageData(
+        0,
+        0,
+        canvasRef.current.width,
+        canvasRef.current.height
+      );
+
+      canvasRef.current.data = pixelData.data;
+    };
   };
 
   useEffect(() => {
@@ -63,11 +64,11 @@ export const Canvas = ({
 
   return (
     <canvas
-      onClick={takeColorHandler}
-      onMouseMove={mouseMoveHandler}
+      onClick={mouseMoveHandler}
       width="500px"
       height="600px"
       ref={canvasRef}
+      id="canvas"
     />
   );
 };

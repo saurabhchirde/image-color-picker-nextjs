@@ -24,6 +24,7 @@ const HomePage = () => {
   );
   const [flag, setFlag] = useState(false);
   const [showRandomImage, setShowRandomImage] = useState(false);
+  const [color, setColor] = useState("");
 
   const colorArray = new Array(5);
 
@@ -124,61 +125,14 @@ const HomePage = () => {
               position="relative"
             >
               <Canvas
-                colorArray={colorArray}
+                setColor={setColor}
                 imageData={imageData}
                 imageUrl={imageUrl}
                 flag={flag}
                 showRandomImage={showRandomImage}
               />
-              {/* <Box position="absolute" w="full" h="full" top={0}>
-                <Box
-                  w={7}
-                  h={7}
-                  backgroundColor="yellow.500"
-                  borderRadius="full"
-                  border="2px solid white"
-                  draggable="true"
-                  onDrag={mouseMoveHandler}
-                />
-                <Box
-                  w={7}
-                  h={7}
-                  backgroundColor="yellow.500"
-                  borderRadius="full"
-                  border="2px solid white"
-                  draggable="true"
-                  // onDrag={mouseMoveHandler}
-                />
-                <Box
-                  w={7}
-                  h={7}
-                  backgroundColor="yellow.500"
-                  borderRadius="full"
-                  border="2px solid white"
-                  draggable="true"
-                  // onDrag={mouseMoveHandler}
-                />
-                <Box
-                  w={7}
-                  h={7}
-                  backgroundColor="yellow.500"
-                  borderRadius="full"
-                  border="2px solid white"
-                  draggable="true"
-                  // onDrag={mouseMoveHandler}
-                />
-                <Box
-                  w={7}
-                  h={7}
-                  backgroundColor="yellow.500"
-                  borderRadius="full"
-                  border="2px solid white"
-                  draggable="true"
-                  // onDrag={mouseMoveHandler}
-                />
-              </Box> */}
             </Box>
-            <Palette colorArray={colorArray} />
+            <Palette color={color} />
           </VStack>
           <Flex
             flexDirection="column"
