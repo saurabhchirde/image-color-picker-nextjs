@@ -1,18 +1,7 @@
-import {
-  Container,
-  VStack,
-  Flex,
-  Heading,
-  Text,
-  Button,
-  IconButton,
-  Box,
-} from "@chakra-ui/react";
-import ImageUploading from "react-images-uploading";
+import { Container, Flex, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { CanvasWithPalette, UploadSection } from "../components";
+import { CanvasWithPalette, Header, UploadSection } from "../components";
 import { getImageData } from "../Utils/getImage";
-import { saveAs } from "file-saver";
 
 const initialPosition = {
   picker1: {
@@ -79,37 +68,40 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Container minH="100vh" maxW="full" p={0} paddingBottom="10">
-      <Flex
-        w="full"
-        py={10}
-        alignItems="center"
-        justifyContent="center"
-        flexWrap="wrap"
-      >
-        <UploadSection
-          imageData={imageData}
-          imageUploadHandler={imageUploadHandler}
-        />
-        <Flex w="container.sm" justifyContent="center">
-          <CanvasWithPalette
-            color={color}
-            setColor={setColor}
+    <>
+      <Header />
+      <Container minH="100vh" maxW="full" p={0} paddingBottom="10">
+        <Flex
+          w="full"
+          py={10}
+          alignItems="center"
+          justifyContent="center"
+          flexWrap="wrap"
+        >
+          <UploadSection
             imageData={imageData}
-            imageUrl={imageUrl}
-            flag={flag}
-            pickerPos={pickerPos}
-            setPickerPosition={setPickerPosition}
-            showRandomImage={showRandomImage}
-            randomImageHandler={randomImageHandler}
+            imageUploadHandler={imageUploadHandler}
           />
+          <Flex w="container.sm" justifyContent="center">
+            <CanvasWithPalette
+              color={color}
+              setColor={setColor}
+              imageData={imageData}
+              imageUrl={imageUrl}
+              flag={flag}
+              pickerPos={pickerPos}
+              setPickerPosition={setPickerPosition}
+              showRandomImage={showRandomImage}
+              randomImageHandler={randomImageHandler}
+            />
+          </Flex>
         </Flex>
-      </Flex>
-      <Text textAlign="center" marginBottom={5}>
-        made with ❤️ by
-        <a href="https://twitter.com/SaurabhChirde">Saurabh Chirde</a>
-      </Text>
-    </Container>
+        <Text textAlign="center" marginBottom={5}>
+          made with ❤️ by{" "}
+          <a href="https://twitter.com/SaurabhChirde">Saurabh Chirde</a>
+        </Text>
+      </Container>
+    </>
   );
 };
 

@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import { useRef, useEffect, useState } from "react";
-import { DraggableItem } from "./DraggableItems/DraggableItems";
 import { rgbToHex } from "../../../Utils/convertToHex";
 import { DraggableContainer } from "./DraggableContainer/DraggableContainer";
 

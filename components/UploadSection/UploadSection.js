@@ -4,15 +4,18 @@ import ImageUploading from "react-images-uploading";
 export const UploadSection = ({ imageData, imageUploadHandler }) => {
   return (
     <VStack
-      w="container.sm"
-      h="container.md"
+      width={["100%", "90%", "80%", "30%"]}
+      height={{
+        base: "100%",
+        md: "container",
+        xl: "container.md",
+      }}
       p={5}
       alignItems="flex-start"
-      justifyContent="center"
     >
       <Box marginBottom={28}>
         <Heading size="2xl" marginBottom={10}>
-          Extract Colors from your Photos
+          Extract Colors From Your Favourite Photos
         </Heading>
         <Text>
           Need a color palette that perfectly matches your favorite images? With
