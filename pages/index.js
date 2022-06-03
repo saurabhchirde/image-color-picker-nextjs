@@ -14,16 +14,16 @@ const initialPosition = {
     y: 180,
   },
   picker3: {
-    x: 300,
-    y: 250,
+    x: 350,
+    y: 80,
   },
   picker4: {
-    x: 300,
+    x: 200,
     y: 500,
   },
   picker5: {
-    x: 100,
-    y: 400,
+    x: 80,
+    y: 370,
   },
 };
 

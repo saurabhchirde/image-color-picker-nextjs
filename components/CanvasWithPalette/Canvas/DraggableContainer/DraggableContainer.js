@@ -21,22 +21,22 @@ export const DraggableContainer = ({ mouseMoveHandler, color }) => {
       <DraggableItem
         mouseMoveHandler={mouseMoveHandler}
         color={color?.picker3}
-        xPos={300}
-        yPos={50}
+        xPos={350}
+        yPos={80}
         id="picker3"
       />
       <DraggableItem
         mouseMoveHandler={mouseMoveHandler}
         color={color?.picker4}
-        xPos={300}
+        xPos={200}
         yPos={500}
         id="picker4"
       />
       <DraggableItem
         mouseMoveHandler={mouseMoveHandler}
         color={color?.picker5}
-        xPos={100}
-        yPos={400}
+        xPos={80}
+        yPos={370}
         id="picker5"
       />
     </Box>
