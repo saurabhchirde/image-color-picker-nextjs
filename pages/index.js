@@ -10,12 +10,32 @@ import {
 } from "@chakra-ui/react";
 import ImageUploading from "react-images-uploading";
 import { useState, useEffect } from "react";
-import { FiDownload } from "react-icons/fi";
-import { BsShuffle } from "react-icons/bs";
-import { Palette } from "../components/Cards/Palette/Palette";
-import { Canvas } from "../components";
+import { CanvasWithPalette, UploadSection } from "../components";
 import { getImageData } from "../Utils/getImage";
 import { saveAs } from "file-saver";
+
+const initialPosition = {
+  picker1: {
+    x: 80,
+    y: 50,
+  },
+  picker2: {
+    x: 10,
+    y: 180,
+  },
+  picker3: {
+    x: 300,
+    y: 250,
+  },
+  picker4: {
+    x: 300,
+    y: 500,
+  },
+  picker5: {
+    x: 100,
+    y: 400,
+  },
+};
 
 const HomePage = () => {
   const [imageData, setImageData] = useState([]);
@@ -25,15 +45,17 @@ const HomePage = () => {
   const [flag, setFlag] = useState(false);
   const [showRandomImage, setShowRandomImage] = useState(false);
   const [color, setColor] = useState({
-    palette1: "",
-    palette2: "",
-    palette3: "",
-    palette4: "",
-    palette5: "",
+    picker1: "",
+    picker2: "",
+    picker3: "",
+    picker4: "",
+    picker5: "",
   });
 
+  const [pickerPos, setPickerPosition] = useState(initialPosition);
+
   const imageApi = "https://api.unsplash.com/search/photos?query=";
-  const completeImageAPI = `${imageApi}+landscape&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
+  const completeImageAPI = `${imageApi}+city&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
 
   const imageUploadHandler = (newImage) => {
     setImageData(newImage);
@@ -46,17 +68,10 @@ const HomePage = () => {
 
   const randomImageHandler = () => {
     setFlag(false);
+    setPickerPosition(initialPosition);
     setShowRandomImage((pre) => !pre);
     getImageData(completeImageAPI, setImageUrl);
     setImageData([]);
-  };
-
-  const downloadHandler = () => {
-    if (flag) {
-      saveAs(imageData[imageData.length - 1].data_url, "palette.jpg");
-    } else {
-      saveAs(imageUrl, "palette.jpg");
-    }
   };
 
   useEffect(() => {
@@ -66,99 +81,34 @@ const HomePage = () => {
   return (
     <Container minH="100vh" maxW="full" p={0} paddingBottom="10">
       <Flex
-        h="95vh"
         w="full"
         py={10}
         alignItems="center"
         justifyContent="center"
         flexWrap="wrap"
       >
-        <VStack
-          w="container.sm"
-          minW="96"
-          h="full"
-          p={10}
-          spacing={10}
-          alignItems="flex-start"
-          justifyContent="center"
-        >
-          <Heading size="2xl">Get Colors from your Photos</Heading>
-          <Text>
-            Need a color palette that perfectly matches your favorite images?
-            With Dopely image color palette generator, you can create color
-            schemes in seconds. Simply upload a photo, and we’ll use the hues in
-            the photo to create your palette.
-          </Text>
-          <ImageUploading
-            multiple
-            value={imageData}
-            onChange={imageUploadHandler}
-            maxNumber="1"
-            dataURLKey="data_url"
-          >
-            {({ onImageUpdate }) => (
-              <Button
-                colorScheme="blue.400"
-                bg="blue.400"
-                borderRadius="full"
-                size="lg"
-                p={7}
-                onClick={onImageUpdate}
-              >
-                Upload Image
-              </Button>
-            )}
-          </ImageUploading>
-        </VStack>
+        <UploadSection
+          imageData={imageData}
+          imageUploadHandler={imageUploadHandler}
+        />
         <Flex w="container.sm" justifyContent="center">
-          <Flex flexDirection="column" gap={2}>
-            <Box
-              h="full"
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Canvas
-                color={color}
-                setColor={setColor}
-                imageData={imageData}
-                imageUrl={imageUrl}
-                flag={flag}
-                showRandomImage={showRandomImage}
-              />
-            </Box>
-            <Palette color={color} />
-          </Flex>
-          <Flex
-            flexDirection="column"
-            justifyContent="space-between"
-            paddingLeft={5}
-            py={5}
-          >
-            <IconButton
-              aria-label="Call Segun"
-              color="blue.400"
-              fontSize="3xl"
-              bg="transparent"
-              p={6}
-              borderRadius="full"
-              icon={<BsShuffle />}
-              onClick={randomImageHandler}
-            />
-            <IconButton
-              aria-label="Call Segun"
-              color="blue.400"
-              fontSize="3xl"
-              bg="transparent"
-              p={6}
-              borderRadius="full"
-              icon={<FiDownload />}
-              onClick={downloadHandler}
-            />
-          </Flex>
+          <CanvasWithPalette
+            color={color}
+            setColor={setColor}
+            imageData={imageData}
+            imageUrl={imageUrl}
+            flag={flag}
+            pickerPos={pickerPos}
+            setPickerPosition={setPickerPosition}
+            showRandomImage={showRandomImage}
+            randomImageHandler={randomImageHandler}
+          />
         </Flex>
       </Flex>
+      <Text textAlign="center" marginBottom={5}>
+        made with ❤️ by
+        <a href="https://twitter.com/SaurabhChirde">Saurabh Chirde</a>
+      </Text>
     </Container>
   );
 };
