@@ -28,9 +28,7 @@ const initialPosition = {
 
 const HomePage = () => {
   const [imageData, setImageData] = useState([]);
-  const [imageUrl, setImageUrl] = useState(
-    "https://images.unsplash.com/photo-1612808375766-b63ce23ae7f4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
-  );
+  const [imageUrl, setImageUrl] = useState("");
   const [flag, setFlag] = useState(false);
   const [showRandomImage, setShowRandomImage] = useState(false);
   const [color, setColor] = useState({
