@@ -7,18 +7,23 @@ import { BsShuffle } from "react-icons/bs";
 
 export const CanvasWithPalette = (props) => {
   const {
-    color,
-    setColor,
-    imageData,
+    uploadedImages,
     imageUrl,
     flag,
     pickerPos,
-    setPickerPosition,
     showRandomImage,
     randomImageHandler,
   } = props;
 
   const componentRef = useRef();
+  const [color, setColor] = useState({
+    picker1: "",
+    picker2: "",
+    picker3: "",
+    picker4: "",
+    picker5: "",
+  });
+
   const [name, setName] = useState("");
 
   return (
@@ -46,11 +51,10 @@ export const CanvasWithPalette = (props) => {
           <Canvas
             color={color}
             setColor={setColor}
-            imageData={imageData}
+            uploadedImages={uploadedImages}
             imageUrl={imageUrl}
             flag={flag}
             pickerPos={pickerPos}
-            setPickerPosition={setPickerPosition}
             showRandomImage={showRandomImage}
           />
         </Box>

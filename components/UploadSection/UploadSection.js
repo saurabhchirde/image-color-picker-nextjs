@@ -1,7 +1,7 @@
 import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
 import ImageUploading from "react-images-uploading";
 
-export const UploadSection = ({ imageData, imageUploadHandler }) => {
+export const UploadSection = ({ uploadedImages, imageUploadHandler }) => {
   return (
     <VStack
       width={["100%", "100%", "100%", "40%"]}
@@ -31,7 +31,7 @@ export const UploadSection = ({ imageData, imageUploadHandler }) => {
       </Box>
       <ImageUploading
         multiple
-        value={imageData}
+        value={uploadedImages}
         onChange={imageUploadHandler}
         maxNumber="1"
         dataURLKey="data_url"

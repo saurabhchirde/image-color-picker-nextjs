@@ -14,7 +14,7 @@ const initialPosition = {
   },
   picker3: {
     x: 350,
-    y: 80,
+    y: 25,
   },
   picker4: {
     x: 200,
@@ -27,17 +27,10 @@ const initialPosition = {
 };
 
 const HomePage = () => {
-  const [imageData, setImageData] = useState([]);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [imageUrl, setImageUrl] = useState("");
   const [flag, setFlag] = useState(false);
   const [showRandomImage, setShowRandomImage] = useState(false);
-  const [color, setColor] = useState({
-    picker1: "",
-    picker2: "",
-    picker3: "",
-    picker4: "",
-    picker5: "",
-  });
 
   const [pickerPos, setPickerPosition] = useState(initialPosition);
 
@@ -45,7 +38,7 @@ const HomePage = () => {
   const completeImageAPI = `${imageApi}+city&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
 
   const imageUploadHandler = (newImage) => {
-    setImageData(newImage);
+    setUploadedImages(newImage);
     setImageUrl("");
     if (newImage.length > 0) {
       setFlag(true);
@@ -58,7 +51,7 @@ const HomePage = () => {
     setPickerPosition(initialPosition);
     setShowRandomImage((pre) => !pre);
     getImageData(completeImageAPI, setImageUrl);
-    setImageData([]);
+    setUploadedImages([]);
   };
 
   useEffect(() => {
@@ -77,13 +70,11 @@ const HomePage = () => {
           w="full"
         >
           <UploadSection
-            imageData={imageData}
+            uploadedImages={uploadedImages}
             imageUploadHandler={imageUploadHandler}
           />
           <CanvasWithPalette
-            color={color}
-            setColor={setColor}
-            imageData={imageData}
+            uploadedImages={uploadedImages}
             imageUrl={imageUrl}
             flag={flag}
             pickerPos={pickerPos}
