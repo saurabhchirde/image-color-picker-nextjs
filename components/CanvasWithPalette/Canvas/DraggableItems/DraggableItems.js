@@ -5,7 +5,6 @@ export const DraggableItem = ({ mouseMoveHandler, color, xPos, yPos, id }) => {
   return (
     <Draggable
       bounds=".draggable-container"
-      onStart={mouseMoveHandler}
       onDrag={mouseMoveHandler}
       defaultPosition={{ x: xPos, y: yPos }}
     >
@@ -15,8 +14,10 @@ export const DraggableItem = ({ mouseMoveHandler, color, xPos, yPos, id }) => {
         borderRadius="full"
         backgroundColor={color}
         id={id}
-        border="2px solid white"
+        border="4px solid"
+        borderColor={color[1] === "f" || color[1] === "e" ? "black" : "white"}
         cursor="pointer"
+        display="inline-block"
       />
     </Draggable>
   );

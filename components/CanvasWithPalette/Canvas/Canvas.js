@@ -10,18 +10,23 @@ export const Canvas = ({
   imageUrl,
   flag,
   pickerPos,
+  showRandomImage,
 }) => {
   const canvasRef = useRef(null);
   const [pos, setPos] = useState({
     x: 0,
     y: 0,
   });
+  const [canvasDimention, setCanvasDimention] = useState({
+    width: 500,
+    height: 500,
+  });
 
   let averageColor = { r: 0, g: 0, b: 0 };
   let totalCount = 0;
 
-  let averageHeight = 4;
-  let averageWidth = 4;
+  let averageHeight = 8;
+  let averageWidth = 8;
 
   const mouseMoveHandler = (e) => {
     const canvas = canvasRef.current;
@@ -76,7 +81,22 @@ export const Canvas = ({
 
     image.crossOrigin = "Anonymous";
     image.onload = () => {
-      context.drawImage(image, 0, 0, image.width, image.height, 0, 0, 500, 500);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      const whRatio = image.width / image.height;
+      let newWidth = canvas.width;
+      let newHeight = newWidth / whRatio;
+      if (newHeight > canvas.height) {
+        newHeight = canvas.height;
+        newWidth = newHeight * whRatio;
+      }
+      let xOffset = newWidth < canvas.width ? (canvas.width - newWidth) / 2 : 0;
+      let yOffset =
+        newHeight < canvas.height ? (canvas.height - newHeight) / 2 : 0;
+
+      setCanvasDimention({ width: newWidth, height: newHeight });
+
+      context.drawImage(image, xOffset, yOffset, newWidth, newHeight);
+
       initialPositionColor(context);
     };
   };
@@ -114,20 +134,21 @@ export const Canvas = ({
     ).data;
 
     setColor({
-      picker1: getAverageColor(pixelData1),
-      picker2: getAverageColor(pixelData2),
-      picker3: getAverageColor(pixelData3),
-      picker4: getAverageColor(pixelData4),
-      picker5: getAverageColor(pixelData5),
+      picker1: rgbToHex(pixelData1[0], pixelData1[1], pixelData1[2]),
+      picker2: rgbToHex(pixelData2[0], pixelData2[1], pixelData2[2]),
+      picker3: rgbToHex(pixelData3[0], pixelData3[1], pixelData3[2]),
+      picker4: rgbToHex(pixelData4[0], pixelData4[1], pixelData4[2]),
+      picker5: rgbToHex(pixelData5[0], pixelData5[1], pixelData5[2]),
     });
+    2;
   };
 
   useEffect(() => {
     createCanvas();
-  }, [flag, imageUrl, uploadedImages?.length]);
+  }, [flag, imageUrl, uploadedImages?.length, showRandomImage]);
 
   return (
-    <Box className="draggable-container">
+    <Box display="flex" alignItems="center" justifyContent="center">
       <canvas
         className="canvas"
         height="500px"
@@ -139,6 +160,7 @@ export const Canvas = ({
         mouseMoveHandler={mouseMoveHandler}
         color={color}
         pickerPos={pickerPos}
+        canvasDimention={canvasDimention}
       />
     </Box>
   );

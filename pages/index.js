@@ -5,24 +5,24 @@ import { getImageData } from "../Utils/getImage";
 
 const initialPosition = {
   picker1: {
-    x: 80,
-    y: 50,
+    x: 180,
+    y: 80,
   },
   picker2: {
-    x: 10,
-    y: 180,
+    x: 130,
+    y: 200,
   },
   picker3: {
-    x: 350,
-    y: 25,
+    x: 100,
+    y: 120,
   },
   picker4: {
-    x: 200,
-    y: 300,
+    x: 10,
+    y: 210,
   },
   picker5: {
     x: 80,
-    y: 370,
+    y: 100,
   },
 };
 
@@ -35,7 +35,7 @@ const HomePage = () => {
   const [pickerPos, setPickerPosition] = useState(initialPosition);
 
   const imageApi = "https://api.unsplash.com/search/photos?query=";
-  const completeImageAPI = `${imageApi}+city&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
+  const completeImageAPI = `${imageApi}+nature&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
 
   const imageUploadHandler = (newImage) => {
     setUploadedImages(newImage);
@@ -63,7 +63,7 @@ const HomePage = () => {
       <Container maxW="container.xl" p={0} paddingBottom="10">
         <Header />
         <Flex
-          py={10}
+          py={0}
           alignItems="center"
           justifyContent="space-between"
           flexWrap="wrap"

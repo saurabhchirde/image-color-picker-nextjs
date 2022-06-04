@@ -1,9 +1,19 @@
 import { Box } from "@chakra-ui/react";
 import { DraggableItem } from "../DraggableItems/DraggableItems";
 
-export const DraggableContainer = ({ mouseMoveHandler, color, pickerPos }) => {
+export const DraggableContainer = ({
+  mouseMoveHandler,
+  color,
+  pickerPos,
+  canvasDimention,
+}) => {
   return (
-    <Box position="absolute" w="500px" marginTop="-500px" display="flex">
+    <Box
+      position="absolute"
+      w={`${canvasDimention.width}px`}
+      h={`${canvasDimention.height}px`}
+      className="draggable-container"
+    >
       <DraggableItem
         mouseMoveHandler={mouseMoveHandler}
         color={color?.picker1}

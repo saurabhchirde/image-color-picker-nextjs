@@ -32,7 +32,6 @@ export const CanvasWithPalette = (props) => {
       height={{
         base: "100%",
         md: "container",
-        xl: "container.md",
       }}
       justifyContent="center"
     >
@@ -40,14 +39,9 @@ export const CanvasWithPalette = (props) => {
         flexDirection="column"
         ref={componentRef}
         p={6}
-        justifyContent="space-between"
+        justifyContent="flex-start"
       >
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="flex-start"
-        >
+        <Box display="flex" flexDirection="column" justifyContent="flex-start">
           <Canvas
             color={color}
             setColor={setColor}
@@ -71,12 +65,18 @@ export const CanvasWithPalette = (props) => {
           {name}
         </Text>
       </Flex>
-      <Flex flexDirection="column" paddingTop={6} px={2}>
+      <Flex
+        flexDirection="column"
+        paddingTop={6}
+        px={2}
+        py={20}
+        justifyContent="space-between"
+      >
         <Tooltip label="Random Image" placement="top" p={2}>
           <IconButton
             aria-label="Call Segun"
             color="blue.400"
-            fontSize="3xl"
+            fontSize="4xl"
             bg="transparent"
             p={5}
             py={6}
@@ -90,7 +90,7 @@ export const CanvasWithPalette = (props) => {
           <IconButton
             aria-label="Call Segun"
             color="blue.400"
-            fontSize="3xl"
+            fontSize="4xl"
             bg="transparent"
             p={5}
             py={6}
@@ -98,12 +98,12 @@ export const CanvasWithPalette = (props) => {
             borderRadius="xl"
             icon={<FiDownload />}
             onClick={async () => {
-              setName("made with ❤️ by Pebble Colors");
+              setName("made with Pebble Colors");
               const { exportComponentAsPNG } = await import(
                 "react-component-export-image"
               );
               setName("");
-              exportComponentAsPNG(componentRef);
+              exportComponentAsPNG(componentRef, { fileName: "Palette" });
             }}
           />
         </Tooltip>

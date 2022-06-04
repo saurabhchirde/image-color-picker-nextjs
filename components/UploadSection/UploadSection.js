@@ -8,12 +8,13 @@ export const UploadSection = ({ uploadedImages, imageUploadHandler }) => {
       height={{
         base: "100%",
         md: "container",
-        xl: "container.md",
+        xl: "container.sm",
       }}
       p={5}
       alignItems="flex-start"
+      justifyContent="center"
     >
-      <Box marginBottom={28}>
+      <Box marginBottom={16}>
         <Heading
           size="2xl"
           marginBottom={10}
