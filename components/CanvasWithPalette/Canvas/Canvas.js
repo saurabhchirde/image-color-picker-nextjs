@@ -27,13 +27,6 @@ export const Canvas = ({
       return { ...prePos, x: canvas.offsetLeft, y: canvas.offsetTop };
     });
 
-    setPickerPosition((prePos) => {
-      return {
-        ...prePos,
-        [e.target.id]: { x: canvas.offsetLeft, y: canvas.offsetTop },
-      };
-    });
-
     let x = e.pageX - pos.x;
     let y = e.pageY - pos.y;
 
@@ -55,17 +48,7 @@ export const Canvas = ({
 
     image.crossOrigin = "Anonymous";
     image.onload = () => {
-      context.drawImage(
-        image,
-        80,
-        0,
-        image.width,
-        image.height,
-        0,
-        0,
-        550,
-        600
-      );
+      context.drawImage(image, 0, 0, image.width, image.height, 0, 0, 500, 500);
       initialPositionColor(context);
     };
   };
@@ -125,7 +108,7 @@ export const Canvas = ({
     <Box className="draggable-container">
       <canvas
         width="500px"
-        height="600px"
+        height="500px"
         ref={canvasRef}
         style={{ borderRadius: "15px 15px 0 0" }}
       />

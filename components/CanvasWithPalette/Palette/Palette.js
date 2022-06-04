@@ -8,12 +8,43 @@ export const Palette = ({ color }) => {
       textAlign="center"
       color="white"
       justifyContent="center"
+      marginTop={2}
     >
-      <PaletteBox color={color?.picker1} />
-      <PaletteBox color={color?.picker2} />
-      <PaletteBox color={color?.picker3} />
-      <PaletteBox color={color?.picker4} />
-      <PaletteBox color={color?.picker5} />
+      <PaletteBox
+        color={color?.picker1}
+        topLeft={0}
+        topRight={0}
+        botLeft={15}
+        botRight={0}
+      />
+      <PaletteBox
+        color={color?.picker2}
+        topLeft={0}
+        topRight={0}
+        botLeft={0}
+        botRight={0}
+      />
+      <PaletteBox
+        color={color?.picker3}
+        topLeft={0}
+        topRight={0}
+        botLeft={0}
+        botRight={0}
+      />
+      <PaletteBox
+        color={color?.picker4}
+        topLeft={0}
+        topRight={0}
+        botLeft={0}
+        botRight={0}
+      />
+      <PaletteBox
+        color={color?.picker5}
+        topLeft={0}
+        topRight={0}
+        botLeft={0}
+        botRight={15}
+      />
     </Flex>
   );
 };

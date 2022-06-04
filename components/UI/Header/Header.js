@@ -1,6 +1,6 @@
 import { Box, Flex, Icon } from "@chakra-ui/react";
 import logo from "../../../images/logo.svg";
-import { FaGithub, FaTwitter, FaGlobeAsia } from "react-icons/fa";
+import { FiGithub, FiTwitter, FiGlobe } from "react-icons/fi";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,28 +8,45 @@ export const Header = () => {
   return (
     <Flex
       w="full"
-      h={20}
-      position="sticky"
-      top={0}
-      backgroundColor="white"
-      boxShadow="base"
+      h="20"
       zIndex={2}
       alignItems="center"
       justifyContent="space-between"
       px={5}
     >
-      <Image src={logo} alt="logo" width={220} height={40} />
-      <Box>
+      <Image src={logo} alt="logo" width={190} height={40} />
+      <Flex alignItems="center">
         <Link href="https://saurabhchirde.com/">
-          <Icon as={FaGlobeAsia} w={25} h={25} m={3} />
+          <Icon
+            as={FiGlobe}
+            w={22}
+            h={22}
+            m={3}
+            color="blue.400"
+            cursor="pointer"
+          />
         </Link>
         <Link href="https://github.com/saurabhchirde">
-          <Icon as={FaGithub} w={25} h={25} m={3} />
+          <Icon
+            as={FiGithub}
+            w={22}
+            h={22}
+            m={3}
+            color="blue.400"
+            cursor="pointer"
+          />
         </Link>
         <Link href="https://twitter.com/SaurabhChirde">
-          <Icon as={FaTwitter} w={25} h={25} m={3} />
+          <Icon
+            as={FiTwitter}
+            w={22}
+            h={22}
+            m={3}
+            color="blue.400"
+            cursor="pointer"
+          />
         </Link>
-      </Box>
+      </Flex>
     </Flex>
   );
 };

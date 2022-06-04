@@ -1,5 +1,4 @@
-import { Container, Flex, Text } from "@chakra-ui/react";
-import Link from "next/link";
+import { Container, Flex } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { CanvasWithPalette, Header, UploadSection } from "../components";
 import { getImageData } from "../Utils/getImage";
@@ -19,7 +18,7 @@ const initialPosition = {
   },
   picker4: {
     x: 200,
-    y: 500,
+    y: 300,
   },
   picker5: {
     x: 80,
@@ -67,40 +66,34 @@ const HomePage = () => {
   }, [completeImageAPI]);
 
   return (
-    <>
-      <Header />
-      <Container minH="100vh" maxW="full" p={0} paddingBottom="10">
+    <Container maxW="full" minH="100vh" backgroundColor="blue.50">
+      <Container maxW="container.xl" p={0} paddingBottom="10">
+        <Header />
         <Flex
-          w="full"
           py={10}
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
           flexWrap="wrap"
+          w="full"
         >
           <UploadSection
             imageData={imageData}
             imageUploadHandler={imageUploadHandler}
           />
-          <Flex w="container.sm" justifyContent="center">
-            <CanvasWithPalette
-              color={color}
-              setColor={setColor}
-              imageData={imageData}
-              imageUrl={imageUrl}
-              flag={flag}
-              pickerPos={pickerPos}
-              setPickerPosition={setPickerPosition}
-              showRandomImage={showRandomImage}
-              randomImageHandler={randomImageHandler}
-            />
-          </Flex>
+          <CanvasWithPalette
+            color={color}
+            setColor={setColor}
+            imageData={imageData}
+            imageUrl={imageUrl}
+            flag={flag}
+            pickerPos={pickerPos}
+            setPickerPosition={setPickerPosition}
+            showRandomImage={showRandomImage}
+            randomImageHandler={randomImageHandler}
+          />
         </Flex>
-        <Text textAlign="center" marginBottom={5}>
-          made with ❤️ by{" "}
-          <Link href="https://twitter.com/SaurabhChirde">Saurabh Chirde</Link>
-        </Text>
       </Container>
-    </>
+    </Container>
   );
 };
 

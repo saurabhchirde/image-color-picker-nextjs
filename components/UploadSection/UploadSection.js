@@ -4,7 +4,7 @@ import ImageUploading from "react-images-uploading";
 export const UploadSection = ({ imageData, imageUploadHandler }) => {
   return (
     <VStack
-      width={["100%", "90%", "80%", "30%"]}
+      width={["100%", "100%", "100%", "40%"]}
       height={{
         base: "100%",
         md: "container",
@@ -14,7 +14,12 @@ export const UploadSection = ({ imageData, imageUploadHandler }) => {
       alignItems="flex-start"
     >
       <Box marginBottom={28}>
-        <Heading size="2xl" marginBottom={10}>
+        <Heading
+          size="2xl"
+          marginBottom={10}
+          fontWeight="500"
+          lineHeight="shorter"
+        >
           Extract Colors From Your Favourite Photos
         </Heading>
         <Text>
@@ -35,7 +40,7 @@ export const UploadSection = ({ imageData, imageUploadHandler }) => {
           <Button
             colorScheme="blue.400"
             bg="blue.400"
-            borderRadius="full"
+            borderRadius="lg"
             size="lg"
             p={7}
             onClick={onImageUpdate}

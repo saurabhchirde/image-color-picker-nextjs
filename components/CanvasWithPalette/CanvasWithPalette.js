@@ -22,14 +22,26 @@ export const CanvasWithPalette = (props) => {
   const [name, setName] = useState("");
 
   return (
-    <Flex>
-      <Flex flexDirection="column" gap={2} ref={componentRef} px={10} py={6}>
+    <Flex
+      width={["100%", "100%", "100%", "50%"]}
+      height={{
+        base: "100%",
+        md: "container",
+        xl: "container.md",
+      }}
+      justifyContent="center"
+    >
+      <Flex
+        flexDirection="column"
+        ref={componentRef}
+        p={6}
+        justifyContent="space-between"
+      >
         <Box
-          h="full"
           display="flex"
           flexDirection="column"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="flex-start"
         >
           <Canvas
             color={color}
@@ -45,24 +57,27 @@ export const CanvasWithPalette = (props) => {
         <Palette color={color} />
         <Text
           position="relative"
-          marginBottom={0}
+          marginTop={8}
           visibility={name ? "visible" : "hidden"}
-          p={4}
           textAlign="center"
+          fontSize={18}
+          fontWeight="500"
+          color="blackAlpha.700"
         >
           {name}
         </Text>
       </Flex>
-      <Flex flexDirection="column" paddingLeft="-1" paddingTop={4}>
+      <Flex flexDirection="column" paddingTop={6} px={2}>
         <Tooltip label="Random Image" placement="top" p={2}>
           <IconButton
             aria-label="Call Segun"
             color="blue.400"
-            fontSize="4xl"
+            fontSize="3xl"
             bg="transparent"
-            p={7}
+            p={5}
+            py={6}
             marginBottom={5}
-            borderRadius="full"
+            borderRadius="xl"
             icon={<BsShuffle />}
             onClick={randomImageHandler}
           />
@@ -71,14 +86,15 @@ export const CanvasWithPalette = (props) => {
           <IconButton
             aria-label="Call Segun"
             color="blue.400"
-            fontSize="4xl"
+            fontSize="3xl"
             bg="transparent"
-            p={7}
+            p={5}
+            py={6}
             marginBottom={5}
-            borderRadius="full"
+            borderRadius="xl"
             icon={<FiDownload />}
             onClick={async () => {
-              setName("made with ❤️ by Saurabh Chirde");
+              setName("made with ❤️ by Pebble Colors");
               const { exportComponentAsPNG } = await import(
                 "react-component-export-image"
               );

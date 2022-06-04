@@ -3,7 +3,7 @@ import { DraggableItem } from "../DraggableItems/DraggableItems";
 
 export const DraggableContainer = ({ mouseMoveHandler, color }) => {
   return (
-    <Box position="absolute" w="500px" marginTop="-600px" display="flex">
+    <Box position="absolute" w="500px" marginTop="-500px" display="flex">
       <DraggableItem
         mouseMoveHandler={mouseMoveHandler}
         color={color?.picker1}
@@ -29,7 +29,7 @@ export const DraggableContainer = ({ mouseMoveHandler, color }) => {
         mouseMoveHandler={mouseMoveHandler}
         color={color?.picker4}
         xPos={200}
-        yPos={500}
+        yPos={300}
         id="picker4"
       />
       <DraggableItem

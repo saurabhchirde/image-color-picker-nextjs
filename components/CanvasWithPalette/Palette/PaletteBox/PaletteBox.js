@@ -1,7 +1,7 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
-export const PaletteBox = ({ color }) => {
+export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
   const [showCopied, setShowCopied] = useState(false);
 
   const copiedHandler = () => {
@@ -9,14 +9,14 @@ export const PaletteBox = ({ color }) => {
     setShowCopied(true);
     setTimeout(() => {
       setShowCopied(false);
-    }, 2000);
+    }, 1000);
   };
 
   return (
     <Flex flexDirection="column" position="relative">
       {showCopied && (
         <Text
-          color={"black"}
+          color="black"
           fontWeight="bold"
           backgroundColor="white"
           position="absolute"
@@ -25,19 +25,30 @@ export const PaletteBox = ({ color }) => {
           left={-2}
           w={28}
           p={1}
+          transition="400ms ease-in"
         >
           Color Copied
         </Text>
       )}
       <Box
         w="24"
-        h="28"
+        h="24"
         bgColor={color}
-        borderBottomLeftRadius={15}
+        borderTopLeftRadius={topLeft}
+        borderTopRightRadius={topRight}
+        borderBottomLeftRadius={botLeft}
+        borderBottomRightRadius={botRight}
         onClick={copiedHandler}
         cursor="pointer"
       ></Box>
-      <Text color="black" fontWeight="bold" fontSize={18} marginTop={2}>
+      <Text
+        color="blackAlpha.800"
+        fontWeight="500"
+        fontSize={18}
+        marginTop={2}
+        onClick={copiedHandler}
+        cursor="pointer"
+      >
         {color}
       </Text>
     </Flex>
