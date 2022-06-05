@@ -28,9 +28,8 @@ export const UploadSection = ({ imageUploadHandler }) => {
         </Heading>
         <Text>
           Need a color palette that perfectly matches your favorite images? With
-          Dopely image color palette generator, you can create color schemes in
-          seconds. Simply upload a photo, and we’ll use the hues in the photo to
-          create your palette.
+          Pebble Colors, you can create color schemes in seconds. Simply upload
+          a photo, and we’ll use the hues in the photo to create your palette.
         </Text>
       </Box>
       <ImageUploading
