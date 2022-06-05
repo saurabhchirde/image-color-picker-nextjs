@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const PebbleContext = createContext(null);
+const PebbleContext = createContext();
 
 const initialPosition = {
   picker1: {

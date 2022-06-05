@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+.canvas-container {
+  background-color: #d8effd;
+}
+
 * {
   box-sizing: border-box;
 }

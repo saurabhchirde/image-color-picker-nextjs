@@ -25,7 +25,12 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
         p={6}
         justifyContent="flex-start"
       >
-        <Box display="flex" flexDirection="column" justifyContent="flex-start">
+        <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="flex-start"
+          className="canvas-container"
+        >
           <Canvas />
         </Box>
         <Palette />
