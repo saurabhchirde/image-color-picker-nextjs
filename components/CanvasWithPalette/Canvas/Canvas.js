@@ -1,33 +1,31 @@
 import { Box } from "@chakra-ui/react";
 import { useRef, useEffect, useState } from "react";
+import { usePebble } from "../../../context/PebbleContext";
 import { rgbToHex } from "../../../Utils/convertToHex";
 import { DraggableContainer } from "./DraggableContainer/DraggableContainer";
 
-export const Canvas = ({
-  color,
-  setColor,
-  uploadedImages,
-  imageUrl,
-  flag,
-  pickerPos,
-  showRandomImage,
-}) => {
+export const Canvas = () => {
+  const { uploadedImages, imageUrl, flag, pickerPos, setColor } = usePebble();
+
   const canvasRef = useRef(null);
   const [pos, setPos] = useState({
     x: 0,
     y: 0,
   });
+
   const [canvasDimention, setCanvasDimention] = useState({
     width: 500,
     height: 500,
   });
 
+  // inital average color
   let averageColor = { r: 0, g: 0, b: 0 };
   let totalCount = 0;
 
   let averageHeight = 8;
   let averageWidth = 8;
 
+  // To catch users mouse movement
   const mouseMoveHandler = (e) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -39,6 +37,7 @@ export const Canvas = ({
     let x = e.pageX - pos.x;
     let y = e.pageY - pos.y;
 
+    // Pixel data from current mouse position
     const pixelData = context.getImageData(
       x,
       y,
@@ -46,6 +45,7 @@ export const Canvas = ({
       averageHeight
     ).data;
 
+    // Average color of 8*8 box
     const pixelColor = getAverageColor(pixelData);
 
     setColor((preData) => {
@@ -53,6 +53,7 @@ export const Canvas = ({
     });
   };
 
+  // To calculate average color
   const getAverageColor = (pixelData) => {
     const pixelDataLength = pixelData.length;
 
@@ -70,6 +71,7 @@ export const Canvas = ({
     return rgbToHex(averageColor.r, averageColor.g, averageColor.b);
   };
 
+  // Creating canvas on page load
   const createCanvas = () => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -81,7 +83,10 @@ export const Canvas = ({
 
     image.crossOrigin = "Anonymous";
     image.onload = () => {
+      // clear previous canvas to draw new image
       context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // To set the Canvas size as per image
       const whRatio = image.width / image.height;
       let newWidth = canvas.width;
       let newHeight = newWidth / whRatio;
@@ -101,6 +106,7 @@ export const Canvas = ({
     };
   };
 
+  // To set initial position color on drag handles
   const initialPositionColor = (context) => {
     const pixelData1 = context.getImageData(
       pickerPos.picker1.x,
@@ -145,7 +151,7 @@ export const Canvas = ({
 
   useEffect(() => {
     createCanvas();
-  }, [flag, imageUrl, uploadedImages?.length, showRandomImage]);
+  }, [flag, imageUrl, uploadedImages?.length]);
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center">
@@ -158,8 +164,6 @@ export const Canvas = ({
       />
       <DraggableContainer
         mouseMoveHandler={mouseMoveHandler}
-        color={color}
-        pickerPos={pickerPos}
         canvasDimention={canvasDimention}
       />
     </Box>

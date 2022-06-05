@@ -5,26 +5,10 @@ import React, { useRef, useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { BsShuffle } from "react-icons/bs";
 
-export const CanvasWithPalette = (props) => {
-  const {
-    uploadedImages,
-    imageUrl,
-    flag,
-    pickerPos,
-    showRandomImage,
-    randomImageHandler,
-  } = props;
-
+export const CanvasWithPalette = ({ randomImageHandler }) => {
   const componentRef = useRef();
-  const [color, setColor] = useState({
-    picker1: "",
-    picker2: "",
-    picker3: "",
-    picker4: "",
-    picker5: "",
-  });
 
-  const [name, setName] = useState("");
+  const [waterMark, setWaterMark] = useState("");
 
   return (
     <Flex
@@ -42,27 +26,19 @@ export const CanvasWithPalette = (props) => {
         justifyContent="flex-start"
       >
         <Box display="flex" flexDirection="column" justifyContent="flex-start">
-          <Canvas
-            color={color}
-            setColor={setColor}
-            uploadedImages={uploadedImages}
-            imageUrl={imageUrl}
-            flag={flag}
-            pickerPos={pickerPos}
-            showRandomImage={showRandomImage}
-          />
+          <Canvas />
         </Box>
-        <Palette color={color} />
+        <Palette />
         <Text
           position="relative"
           marginTop={8}
-          visibility={name ? "visible" : "hidden"}
+          visibility={waterMark ? "visible" : "hidden"}
           textAlign="center"
           fontSize={18}
           fontWeight="500"
           color="blackAlpha.700"
         >
-          {name}
+          {waterMark}
         </Text>
       </Flex>
       <Flex
@@ -98,11 +74,11 @@ export const CanvasWithPalette = (props) => {
             borderRadius="xl"
             icon={<FiDownload />}
             onClick={async () => {
-              setName("made with Pebble Colors");
+              setWaterMark("made with Pebble Colors");
               const { exportComponentAsPNG } = await import(
                 "react-component-export-image"
               );
-              setName("");
+              setWaterMark("");
               exportComponentAsPNG(componentRef, { fileName: "Palette" });
             }}
           />

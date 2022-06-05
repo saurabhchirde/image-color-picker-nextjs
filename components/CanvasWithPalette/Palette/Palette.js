@@ -1,6 +1,9 @@
 import { Flex } from "@chakra-ui/react";
+import { usePebble } from "../../../context/PebbleContext";
 import { PaletteBox } from "./PaletteBox/PaletteBox";
-export const Palette = ({ color }) => {
+export const Palette = () => {
+  const { color } = usePebble();
+
   return (
     <Flex
       w="full"

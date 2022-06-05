@@ -13,6 +13,7 @@ export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
   };
 
   return (
+    // Single color palette
     <Flex flexDirection="column" position="relative">
       {showCopied && (
         <Text

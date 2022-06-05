@@ -1,12 +1,10 @@
 import { Box } from "@chakra-ui/react";
-import { DraggableItem } from "../DraggableItems/DraggableItems";
+import { usePebble } from "../../../../context/PebbleContext";
+import { DraggableItem } from "./DraggableItems/DraggableItems";
 
-export const DraggableContainer = ({
-  mouseMoveHandler,
-  color,
-  pickerPos,
-  canvasDimention,
-}) => {
+export const DraggableContainer = ({ mouseMoveHandler, canvasDimention }) => {
+  const { pickerPos, color } = usePebble();
+
   return (
     <Box
       position="absolute"

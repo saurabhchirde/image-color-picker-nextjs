@@ -1,7 +1,10 @@
 import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
 import ImageUploading from "react-images-uploading";
+import { usePebble } from "../../context/PebbleContext";
 
-export const UploadSection = ({ uploadedImages, imageUploadHandler }) => {
+export const UploadSection = ({ imageUploadHandler }) => {
+  const { uploadedImages } = usePebble();
+
   return (
     <VStack
       width={["100%", "100%", "100%", "40%"]}
