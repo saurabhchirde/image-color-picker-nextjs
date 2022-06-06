@@ -1,5 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useState } from "react";
+import { GetColorName } from "hex-color-to-color-name";
 
 export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
   const [showCopied, setShowCopied] = useState(false);
@@ -29,6 +30,23 @@ export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
           transition="400ms ease-in"
         >
           Color Copied
+        </Text>
+      )}
+      {color && (
+        <Text
+          color="blackAlpha.800"
+          fontWeight="500"
+          fontSize={15}
+          maxW={24}
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          marginTop={2}
+          marginBottom={2}
+          onClick={copiedHandler}
+          cursor="pointer"
+        >
+          {GetColorName(color)}
         </Text>
       )}
       <Box
