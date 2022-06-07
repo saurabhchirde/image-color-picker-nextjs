@@ -1,4 +1,4 @@
-import { Box, Flex, Icon } from "@chakra-ui/react";
+import { Flex, Icon } from "@chakra-ui/react";
 import logo from "../../../images/logo.svg";
 import { FiGithub, FiTwitter, FiGlobe } from "react-icons/fi";
 import Image from "next/image";

@@ -37,6 +37,13 @@ const PebbleProvider = ({ children }) => {
     picker4: "",
     picker5: "",
   });
+  const [extractedColors, setExtractedColors] = useState({
+    color1: "",
+    color2: "",
+    color3: "",
+    color4: "",
+    color5: "",
+  });
 
   return (
     <PebbleContext.Provider
@@ -51,6 +58,8 @@ const PebbleProvider = ({ children }) => {
         setPickerPosition,
         color,
         setColor,
+        extractedColors,
+        setExtractedColors,
       }}
     >
       {children}

@@ -3,9 +3,17 @@ import { useRef, useEffect, useState } from "react";
 import { usePebble } from "../../../context/PebbleContext";
 import { rgbToHex } from "../../../Utils/convertToHex";
 import { DraggableContainer } from "./DraggableContainer/DraggableContainer";
+import * as Vibrant from "node-vibrant";
 
 export const Canvas = () => {
-  const { uploadedImages, imageUrl, flag, pickerPos, setColor } = usePebble();
+  const {
+    uploadedImages,
+    imageUrl,
+    flag,
+    pickerPos,
+    setColor,
+    setExtractedColors,
+  } = usePebble();
 
   const canvasRef = useRef(null);
   const [pos, setPos] = useState({
@@ -102,6 +110,19 @@ export const Canvas = () => {
 
       context.drawImage(image, xOffset, yOffset, newWidth, newHeight);
 
+      // extract vibrant colors from image
+      let vibrantColors = new Vibrant(image.src);
+      vibrantColors.getPalette((err, palette) => {
+        setExtractedColors({
+          available: true,
+          color1: palette.Vibrant.hex,
+          color2: palette.LightVibrant.hex,
+          color3: palette.DarkVibrant.hex,
+          color4: palette.Muted.hex,
+          color5: palette.LightMuted.hex,
+        });
+      });
+
       initialPositionColor(context);
     };
   };
@@ -155,13 +176,7 @@ export const Canvas = () => {
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center">
-      <canvas
-        className="canvas"
-        height="500px"
-        width="500px"
-        ref={canvasRef}
-        style={{ borderRadius: "15px 15px 0 0" }}
-      />
+      <canvas className="canvas" height="500px" width="500px" ref={canvasRef} />
       <DraggableContainer
         mouseMoveHandler={mouseMoveHandler}
         canvasDimention={canvasDimention}
