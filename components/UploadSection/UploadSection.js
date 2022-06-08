@@ -15,13 +15,13 @@ export const UploadSection = ({ imageUploadHandler }) => {
       }}
       p={5}
       alignItems="flex-start"
-      justifyContent="center"
+      justifyContent="flex-start"
     >
       <Box marginBottom={16}>
         <Heading
           size="2xl"
           marginBottom={10}
-          fontWeight="500"
+          fontWeight="bold"
           lineHeight="shorter"
         >
           Pick/Extract Colors From Your Favourite Photos
