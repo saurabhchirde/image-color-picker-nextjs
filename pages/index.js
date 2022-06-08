@@ -8,7 +8,7 @@ const HomePage = () => {
   const { setUploadedImages, setImageUrl, setFlag } = usePebble();
 
   const imageApi = "https://api.unsplash.com/search/photos?query=";
-  const completeImageAPI = `${imageApi}+nature&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
+  const completeImageAPI = `${imageApi}+flowers&client_id=${process.env.NEXT_PUBLIC_API_KEY}`;
 
   // To upload image
   const imageUploadHandler = (newImage) => {

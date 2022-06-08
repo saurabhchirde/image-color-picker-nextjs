@@ -13,6 +13,7 @@ export const Canvas = () => {
     pickerPos,
     setColor,
     setExtractedColors,
+    showPicker,
   } = usePebble();
 
   const canvasRef = useRef(null);
@@ -20,6 +21,8 @@ export const Canvas = () => {
     x: 0,
     y: 0,
   });
+
+  console.log(showPicker);
 
   const [canvasDimention, setCanvasDimention] = useState({
     width: 500,
@@ -177,10 +180,12 @@ export const Canvas = () => {
   return (
     <Box display="flex" alignItems="center" justifyContent="center">
       <canvas className="canvas" height="500px" width="500px" ref={canvasRef} />
-      <DraggableContainer
-        mouseMoveHandler={mouseMoveHandler}
-        canvasDimention={canvasDimention}
-      />
+      {showPicker && (
+        <DraggableContainer
+          mouseMoveHandler={mouseMoveHandler}
+          canvasDimention={canvasDimention}
+        />
+      )}
     </Box>
   );
 };

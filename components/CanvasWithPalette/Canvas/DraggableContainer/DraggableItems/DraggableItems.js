@@ -22,7 +22,7 @@ export const DraggableItem = ({ mouseMoveHandler, color, xPos, yPos, id }) => {
         borderColor={color[1] === "f" || color[1] === "e" ? "black" : "white"}
         cursor="pointer"
         display="inline-block"
-        position="absolute"
+        // position="absolute"
       />
     </Draggable>
   );

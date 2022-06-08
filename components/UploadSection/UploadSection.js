@@ -24,12 +24,12 @@ export const UploadSection = ({ imageUploadHandler }) => {
           fontWeight="500"
           lineHeight="shorter"
         >
-          Extract Colors From Your Favourite Photos
+          Pick/Extract Colors From Your Favourite Photos
         </Heading>
         <Text>
           Need a color palette that perfectly matches your favorite images? With
-          Pebble Colors, you can create color schemes in seconds. Simply upload
-          a photo, and we’ll use the hues in the photo to create your palette.
+          Pebble Colors, you can create color schemes in seconds. Simply by
+          upload a photo, you can create your own palettes.
         </Text>
       </Box>
       <ImageUploading

@@ -30,6 +30,7 @@ const PebbleProvider = ({ children }) => {
   const [imageUrl, setImageUrl] = useState("");
   const [flag, setFlag] = useState(false);
   const [pickerPos, setPickerPosition] = useState(initialPosition);
+
   const [color, setColor] = useState({
     picker1: "",
     picker2: "",
@@ -44,6 +45,7 @@ const PebbleProvider = ({ children }) => {
     color4: "",
     color5: "",
   });
+  const [showPicker, setShowPicker] = useState(false);
 
   return (
     <PebbleContext.Provider
@@ -60,6 +62,8 @@ const PebbleProvider = ({ children }) => {
         setColor,
         extractedColors,
         setExtractedColors,
+        showPicker,
+        setShowPicker,
       }}
     >
       {children}

@@ -1,19 +1,22 @@
 import { Box, Flex, IconButton, Text, Tooltip, VStack } from "@chakra-ui/react";
 import { Canvas } from "./Canvas/Canvas";
 import { Palette } from "./Palette/Palette";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiDownload } from "react-icons/fi";
 import { BsShuffle } from "react-icons/bs";
 import { HiOutlineColorSwatch } from "react-icons/hi";
+import { TbColorPicker } from "react-icons/tb";
 import { usePebble } from "../../context/PebbleContext";
 
 export const CanvasWithPalette = ({ randomImageHandler }) => {
   const componentRef = useRef();
-  const { setColor, extractedColors } = usePebble();
+  const { color, setColor, extractedColors, showPicker, setShowPicker } =
+    usePebble();
 
   const [waterMark, setWaterMark] = useState("");
 
   const getVibrantColorHandler = () => {
+    setShowPicker(false);
     setColor({
       picker1: extractedColors.color1,
       picker2: extractedColors.color2,
@@ -22,6 +25,16 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
       picker5: extractedColors.color5,
     });
   };
+
+  const pickColorHandler = () => {
+    setShowPicker(true);
+  };
+
+  useEffect(() => {
+    if (!showPicker) {
+      getVibrantColorHandler();
+    }
+  }, [showPicker, color.picker1]);
 
   return (
     <Flex
@@ -83,20 +96,38 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
               onClick={randomImageHandler}
             />
           </Tooltip>
-          {/* <Tooltip label="Vibrant Colors" placement="top" p={2}>
-            <IconButton
-              aria-label="Call Segun"
-              color="blue.400"
-              fontSize="4xl"
-              bg="transparent"
-              p={5}
-              py={6}
-              marginBottom={5}
-              borderRadius="xl"
-              icon={<HiOutlineColorSwatch />}
-              onClick={getVibrantColorHandler}
-            />
-          </Tooltip> */}
+          {showPicker && (
+            <Tooltip label="Vibrant Colors" placement="top" p={2}>
+              <IconButton
+                aria-label="Call Segun"
+                color="blue.400"
+                fontSize="4xl"
+                bg="transparent"
+                p={5}
+                py={6}
+                marginBottom={5}
+                borderRadius="xl"
+                icon={<HiOutlineColorSwatch />}
+                onClick={getVibrantColorHandler}
+              />
+            </Tooltip>
+          )}
+          {!showPicker && (
+            <Tooltip label="Pick Colors" placement="top" p={2}>
+              <IconButton
+                aria-label="Call Segun"
+                color="blue.400"
+                fontSize="4xl"
+                bg="transparent"
+                p={5}
+                py={6}
+                marginBottom={5}
+                borderRadius="xl"
+                icon={<TbColorPicker />}
+                onClick={pickColorHandler}
+              />
+            </Tooltip>
+          )}
         </VStack>
         <Tooltip label="Download Image" placement="top" p={2}>
           <IconButton
