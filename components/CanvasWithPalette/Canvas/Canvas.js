@@ -22,8 +22,6 @@ export const Canvas = () => {
     y: 0,
   });
 
-  console.log(showPicker);
-
   const [canvasDimention, setCanvasDimention] = useState({
     width: 500,
     height: 500,
