@@ -15,7 +15,7 @@ export const UploadSection = ({ imageUploadHandler }) => {
       }}
       p={5}
       alignItems="flex-start"
-      justifyContent="flex-start"
+      justifyContent="center"
     >
       <Box marginBottom={16}>
         <Heading
