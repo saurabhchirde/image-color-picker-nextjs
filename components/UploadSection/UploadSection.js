@@ -1,9 +1,17 @@
-import { Box, Button, Heading, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  Text,
+  useBreakpointValue,
+  VStack,
+} from "@chakra-ui/react";
 import ImageUploading from "react-images-uploading";
 import { usePebble } from "../../context/PebbleContext";
 
 export const UploadSection = ({ imageUploadHandler }) => {
   const { uploadedImages } = usePebble();
+  const isMobileView = useBreakpointValue({ base: true, md: false });
 
   return (
     <VStack
@@ -13,14 +21,15 @@ export const UploadSection = ({ imageUploadHandler }) => {
         md: "container",
         xl: "container.sm",
       }}
-      p={5}
+      p={isMobileView ? 0 : 5}
       alignItems="flex-start"
       justifyContent="center"
+      mb={isMobileView ? 4 : 0}
     >
-      <Box marginBottom={16}>
+      <Box marginBottom={isMobileView ? 2 : 16}>
         <Heading
-          size="2xl"
-          marginBottom={10}
+          size={isMobileView ? "lg" : "2xl"}
+          marginBottom={isMobileView ? 4 : 10}
           fontWeight="bold"
           lineHeight="shorter"
         >
@@ -44,9 +53,10 @@ export const UploadSection = ({ imageUploadHandler }) => {
             colorScheme="blue.400"
             bg="blue.400"
             borderRadius="lg"
-            size="lg"
-            p={7}
+            size={isMobileView ? "md" : "lg"}
+            p={isMobileView ? 4 : 7}
             onClick={onImageUpdate}
+            w={isMobileView ? "full" : "auto"}
           >
             Upload Image
           </Button>
