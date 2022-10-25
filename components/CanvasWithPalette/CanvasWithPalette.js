@@ -5,6 +5,7 @@ import {
   Text,
   Tooltip,
   useBreakpointValue,
+  VStack,
 } from "@chakra-ui/react";
 import { Canvas } from "./Canvas/Canvas";
 import { Palette } from "./Palette/Palette";
@@ -93,11 +94,74 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
       >
         <Flex
           direction={isMobileView ? "row" : "column"}
-          gap={isMobileView ? 4 : 0}
+          gap={isMobileView ? 6 : 0}
         >
-          <Tooltip label="Random Image" placement="top" p={2}>
+          <VStack marginBottom={isMobileView ? 3 : 0}>
+            <Tooltip label="Random Image" placement="top" p={2}>
+              <IconButton
+                aria-label="Random"
+                color="blue.400"
+                fontSize={isMobileView ? "2xl" : "4xl"}
+                bg="transparent"
+                p={5}
+                py={6}
+                marginBottom={isMobileView ? 0 : 5}
+                borderRadius="xl"
+                icon={<BsShuffle />}
+                onClick={randomImageHandler}
+              />
+            </Tooltip>
+            {isMobileView && <Text>Random Image</Text>}
+          </VStack>
+          {showPicker && (
+            <VStack
+              marginBottom={isMobileView ? 3 : 0}
+              w={isMobileView ? "110px" : "auto"}
+            >
+              <Tooltip label="Vibrant Colors" placement="top" p={2}>
+                <IconButton
+                  aria-label="Get Vibrant"
+                  color="blue.400"
+                  fontSize={isMobileView ? "2xl" : "4xl"}
+                  bg="transparent"
+                  p={5}
+                  py={6}
+                  marginBottom={isMobileView ? 0 : 5}
+                  borderRadius="xl"
+                  icon={<HiOutlineColorSwatch />}
+                  onClick={getVibrantColorHandler}
+                />
+              </Tooltip>
+              {isMobileView && <Text>Vibrant Colors</Text>}
+            </VStack>
+          )}
+          {!showPicker && (
+            <VStack
+              marginBottom={isMobileView ? 3 : 0}
+              w={isMobileView ? "110px" : "auto"}
+            >
+              <Tooltip label="Pick Colors" placement="top" p={2}>
+                <IconButton
+                  aria-label="Color Picker"
+                  color="blue.400"
+                  fontSize={isMobileView ? "2xl" : "4xl"}
+                  bg="transparent"
+                  p={5}
+                  py={6}
+                  marginBottom={isMobileView ? 0 : 5}
+                  borderRadius="xl"
+                  icon={<TbColorPicker />}
+                  onClick={pickColorHandler}
+                />
+              </Tooltip>
+              {isMobileView && <Text>Pick Colors</Text>}
+            </VStack>
+          )}
+        </Flex>
+        <VStack marginBottom={isMobileView ? 3 : 0}>
+          <Tooltip label="Download Image" placement="top" p={2}>
             <IconButton
-              aria-label="Random"
+              aria-label="Download"
               color="blue.400"
               fontSize={isMobileView ? "2xl" : "4xl"}
               bg="transparent"
@@ -105,64 +169,19 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
               py={6}
               marginBottom={isMobileView ? 0 : 5}
               borderRadius="xl"
-              icon={<BsShuffle />}
-              onClick={randomImageHandler}
+              icon={<FiDownload />}
+              onClick={async () => {
+                setWaterMark("made with Pebble Colors");
+                const { exportComponentAsPNG } = await import(
+                  "react-component-export-image"
+                );
+                setWaterMark("");
+                exportComponentAsPNG(componentRef, { fileName: "Palette" });
+              }}
             />
           </Tooltip>
-          {showPicker && (
-            <Tooltip label="Vibrant Colors" placement="top" p={2}>
-              <IconButton
-                aria-label="Get Vibrant"
-                color="blue.400"
-                fontSize={isMobileView ? "2xl" : "4xl"}
-                bg="transparent"
-                p={5}
-                py={6}
-                marginBottom={isMobileView ? 0 : 5}
-                borderRadius="xl"
-                icon={<HiOutlineColorSwatch />}
-                onClick={getVibrantColorHandler}
-              />
-            </Tooltip>
-          )}
-          {!showPicker && (
-            <Tooltip label="Pick Colors" placement="top" p={2}>
-              <IconButton
-                aria-label="Color Picker"
-                color="blue.400"
-                fontSize={isMobileView ? "2xl" : "4xl"}
-                bg="transparent"
-                p={5}
-                py={6}
-                marginBottom={isMobileView ? 0 : 5}
-                borderRadius="xl"
-                icon={<TbColorPicker />}
-                onClick={pickColorHandler}
-              />
-            </Tooltip>
-          )}
-        </Flex>
-        <Tooltip label="Download Image" placement="top" p={2}>
-          <IconButton
-            aria-label="Download"
-            color="blue.400"
-            fontSize={isMobileView ? "2xl" : "4xl"}
-            bg="transparent"
-            p={5}
-            py={6}
-            marginBottom={isMobileView ? 0 : 5}
-            borderRadius="xl"
-            icon={<FiDownload />}
-            onClick={async () => {
-              setWaterMark("made with Pebble Colors");
-              const { exportComponentAsPNG } = await import(
-                "react-component-export-image"
-              );
-              setWaterMark("");
-              exportComponentAsPNG(componentRef, { fileName: "Palette" });
-            }}
-          />
-        </Tooltip>
+          {isMobileView && <Text>Download</Text>}
+        </VStack>
       </Flex>
     </Flex>
   );
