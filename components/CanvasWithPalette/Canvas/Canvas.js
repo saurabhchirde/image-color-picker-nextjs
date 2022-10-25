@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { useRef, useEffect, useState } from "react";
 import { usePebble } from "../../../context/PebbleContext";
 import { rgbToHex } from "../../../Utils/convertToHex";
@@ -15,6 +15,7 @@ export const Canvas = () => {
     setExtractedColors,
     showPicker,
   } = usePebble();
+  const isMobileView = useBreakpointValue({ base: true, md: false });
 
   const canvasRef = useRef(null);
   const [pos, setPos] = useState({
@@ -23,8 +24,8 @@ export const Canvas = () => {
   });
 
   const [canvasDimention, setCanvasDimention] = useState({
-    width: 500,
-    height: 500,
+    width: isMobileView ? 350 : 500,
+    height: isMobileView ? 350 : 500,
   });
 
   // inital average color
@@ -177,7 +178,12 @@ export const Canvas = () => {
 
   return (
     <Box display="flex" alignItems="center" justifyContent="center">
-      <canvas className="canvas" height="500px" width="500px" ref={canvasRef} />
+      <canvas
+        className="canvas"
+        height={isMobileView ? "350px" : "500px"}
+        width={isMobileView ? "350px" : "500px"}
+        ref={canvasRef}
+      />
       {showPicker && (
         <DraggableContainer
           mouseMoveHandler={mouseMoveHandler}

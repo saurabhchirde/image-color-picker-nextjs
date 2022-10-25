@@ -1,4 +1,11 @@
-import { Box, Flex, IconButton, Text, Tooltip, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Text,
+  Tooltip,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { Canvas } from "./Canvas/Canvas";
 import { Palette } from "./Palette/Palette";
 import React, { useEffect, useRef, useState } from "react";
@@ -12,6 +19,7 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
   const componentRef = useRef();
   const { color, setColor, extractedColors, showPicker, setShowPicker } =
     usePebble();
+  const isMobileView = useBreakpointValue({ base: true, md: false });
 
   const [waterMark, setWaterMark] = useState("");
 
@@ -39,17 +47,19 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
   return (
     <Flex
       width={["100%", "100%", "100%", "60%"]}
-      maxWidth={650}
+      maxWidth={isMobileView ? "100%" : 650}
       height={{
         base: "100%",
         md: "container",
       }}
+      direction={isMobileView ? "column-reverse" : "row"}
       justifyContent="space-between"
     >
       <Flex
         flexDirection="column"
         ref={componentRef}
-        p={6}
+        p={isMobileView ? 0 : 6}
+        py={isMobileView ? 2 : 6}
         justifyContent="flex-start"
       >
         <Box
@@ -57,7 +67,7 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
           flexDirection="column"
           justifyContent="flex-start"
           className="canvas-container"
-          style={{ borderRadius: "15px 15px 0 0" }}
+          style={{ borderRadius: isMobileView ? 0 : "15px 15px 0 0" }}
         >
           <Canvas />
         </Box>
@@ -75,22 +85,25 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
         </Text>
       </Flex>
       <Flex
-        flexDirection="column"
-        paddingTop={6}
-        px={2}
-        paddingBottom={20}
+        direction={isMobileView ? "row" : "column"}
+        paddingTop={isMobileView ? 1 : 6}
+        px={isMobileView ? 0 : 2}
+        paddingBottom={isMobileView ? 0 : 20}
         justifyContent="space-between"
       >
-        <VStack>
+        <Flex
+          direction={isMobileView ? "row" : "column"}
+          gap={isMobileView ? 4 : 0}
+        >
           <Tooltip label="Random Image" placement="top" p={2}>
             <IconButton
-              aria-label="Call Segun"
+              aria-label="Random"
               color="blue.400"
-              fontSize="4xl"
+              fontSize={isMobileView ? "2xl" : "4xl"}
               bg="transparent"
               p={5}
               py={6}
-              marginBottom={5}
+              marginBottom={isMobileView ? 0 : 5}
               borderRadius="xl"
               icon={<BsShuffle />}
               onClick={randomImageHandler}
@@ -99,13 +112,13 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
           {showPicker && (
             <Tooltip label="Vibrant Colors" placement="top" p={2}>
               <IconButton
-                aria-label="Call Segun"
+                aria-label="Get Vibrant"
                 color="blue.400"
-                fontSize="4xl"
+                fontSize={isMobileView ? "2xl" : "4xl"}
                 bg="transparent"
                 p={5}
                 py={6}
-                marginBottom={5}
+                marginBottom={isMobileView ? 0 : 5}
                 borderRadius="xl"
                 icon={<HiOutlineColorSwatch />}
                 onClick={getVibrantColorHandler}
@@ -115,29 +128,29 @@ export const CanvasWithPalette = ({ randomImageHandler }) => {
           {!showPicker && (
             <Tooltip label="Pick Colors" placement="top" p={2}>
               <IconButton
-                aria-label="Call Segun"
+                aria-label="Color Picker"
                 color="blue.400"
-                fontSize="4xl"
+                fontSize={isMobileView ? "2xl" : "4xl"}
                 bg="transparent"
                 p={5}
                 py={6}
-                marginBottom={5}
+                marginBottom={isMobileView ? 0 : 5}
                 borderRadius="xl"
                 icon={<TbColorPicker />}
                 onClick={pickColorHandler}
               />
             </Tooltip>
           )}
-        </VStack>
+        </Flex>
         <Tooltip label="Download Image" placement="top" p={2}>
           <IconButton
-            aria-label="Call Segun"
+            aria-label="Download"
             color="blue.400"
-            fontSize="4xl"
+            fontSize={isMobileView ? "2xl" : "4xl"}
             bg="transparent"
             p={5}
             py={6}
-            marginBottom={5}
+            marginBottom={isMobileView ? 0 : 5}
             borderRadius="xl"
             icon={<FiDownload />}
             onClick={async () => {
