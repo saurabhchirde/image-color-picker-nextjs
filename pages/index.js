@@ -32,7 +32,12 @@ const HomePage = () => {
   }, [completeImageAPI]);
 
   return (
-    <Container maxW="full" minH="100vh" backgroundColor="blue.50">
+    <Container
+      maxW="full"
+      minH="100vh"
+      backgroundColor="blue.50"
+      px={isMobileView ? 2 : 4}
+    >
       <Container
         maxW={isMobileView ? "container.md" : "container.xl"}
         p={0}

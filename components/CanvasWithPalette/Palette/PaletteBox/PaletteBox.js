@@ -1,9 +1,10 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useState } from "react";
 import { GetColorName } from "hex-color-to-color-name";
 
 export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
   const [showCopied, setShowCopied] = useState(false);
+  const isMobileView = useBreakpointValue({ base: true, md: false });
 
   const copiedHandler = () => {
     navigator.clipboard.writeText(color);
@@ -15,7 +16,7 @@ export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
 
   return (
     // Single color palette
-    <Flex flexDirection="column" position="relative">
+    <Flex flexDirection="column" position="relative" alignItems="center">
       {showCopied && (
         <Text
           color="black"
@@ -36,7 +37,7 @@ export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
         <Text
           color="blackAlpha.800"
           fontWeight="500"
-          fontSize={15}
+          fontSize={isMobileView ? 13 : 15}
           maxW={24}
           overflow="hidden"
           textOverflow="ellipsis"
@@ -50,8 +51,8 @@ export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
         </Text>
       )}
       <Box
-        w="24"
-        h="24"
+        w={isMobileView ? "14" : "24"}
+        h={isMobileView ? "14" : "24"}
         bgColor={color}
         borderTopLeftRadius={topLeft}
         borderTopRightRadius={topRight}
@@ -63,7 +64,7 @@ export const PaletteBox = ({ color, topLeft, topRight, botLeft, botRight }) => {
       <Text
         color="blackAlpha.800"
         fontWeight="500"
-        fontSize={18}
+        fontSize={isMobileView ? 14 : 18}
         marginTop={2}
         onClick={copiedHandler}
         cursor="pointer"
